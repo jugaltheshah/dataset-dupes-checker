@@ -29,11 +29,11 @@
 
             <label for="dataset">Dataset Name / URL</label>
             <input type="text" id="dataset" placeholder="e.g. World Bank Population 2024" required>
-            
+
             <button id="submitBtn" onclick="processHash()">Check & Reserve</button>
             <div id="status"></div>
         </article>
-        
+
         <p><small><strong>Privacy Note:</strong> Your dataset name is hashed <strong>locally</strong> in your browser using $SHA-256$. The instructor only sees the hash and your group name.</small></p>
 
         <section class="leaderboard">
@@ -46,7 +46,7 @@
 
     <script>
         // PASTE YOUR URL BELOW
-        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxON-li3gAdg1J6YHeAecvt5NJ74hH0yYXCDIJl0GGJIzrSeCs9wo2HAqn1wAzSb3gj/exec";
+        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyecd7UPAH6iBiH55MahVkoKH5oLbdcqyrVADlEkNeNtqiIjmYZrU-Xv2kWxhZPvrai/exec";
 
         window.onload = loadGroups;
 
@@ -55,8 +55,8 @@
             try {
                 const response = await fetch(WEB_APP_URL);
                 const groups = await response.json();
-                list.innerHTML = groups.length === 0 
-                    ? "<li>No groups registered yet.</li>" 
+                list.innerHTML = groups.length === 0
+                    ? "<li>No groups registered yet.</li>"
                     : groups.map(g => `<li>✅ ${g}</li>`).join('');
             } catch (err) {
                 list.innerHTML = "<li>Could not load group list.</li>";
@@ -73,7 +73,7 @@
 
             btn.ariaBusy = "true";
             btn.disabled = true;
-            status.className = ""; 
+            status.className = "";
             status.textContent = "Hashing locally...";
 
             // 1. Hash locally
@@ -88,7 +88,7 @@
             try {
                 const response = await fetch(WEB_APP_URL, {
                     method: "POST",
-                    body: JSON.stringify({ 
+                    body: JSON.stringify({
                         hash: hashHex,
                         group: groupInput || "Anonymous Group"
                     })
